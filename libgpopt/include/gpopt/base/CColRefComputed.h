@@ -36,11 +36,12 @@ class CColRefComputed : public CColRef
 private:
 	// private copy ctor
 	CColRefComputed(const CColRefComputed &);
+	BOOL m_ndv_preserving;
 
 public:
 	// ctor
 	CColRefComputed(const IMDType *pmdtype, INT type_modifier, ULONG id,
-					const CName *pname);
+					const CName *pname, const BOOL ndv_preserving = true);
 
 	// dtor
 	virtual ~CColRefComputed();
@@ -57,6 +58,13 @@ public:
 	{
 		// we cannot introduce system columns as computed column
 		return false;
+	}
+
+	// is NDV-preserving?
+	virtual BOOL
+	IsNDVPreserving() const
+	{
+		return m_ndv_preserving;
 	}
 
 

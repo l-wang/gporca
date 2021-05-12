@@ -204,7 +204,7 @@
     <dxl:Plan Id="0" SpaceSize="988020">
       <dxl:Aggregate AggregationStrategy="Plain" StreamSafe="false">
         <dxl:Properties>
-          <dxl:Cost StartupCost="0" TotalCost="14.421875" Rows="1.000000" Width="8"/>
+          <dxl:Cost StartupCost="0" TotalCost="14.425000" Rows="1.000000" Width="8"/>
         </dxl:Properties>
         <dxl:GroupingColumns/>
         <dxl:ProjList>
@@ -217,7 +217,7 @@
         <dxl:Filter/>
         <dxl:Append IsTarget="false" IsZapped="false">
           <dxl:Properties>
-            <dxl:Cost StartupCost="0" TotalCost="13.390625" Rows="2.000000" Width="4"/>
+            <dxl:Cost StartupCost="0" TotalCost="13.392188" Rows="2.200000" Width="4"/>
           </dxl:Properties>
           <dxl:ProjList>
             <dxl:ProjElem ColId="1" Alias="field_1">
@@ -227,7 +227,7 @@
           <dxl:Filter/>
           <dxl:HashJoin JoinType="In">
             <dxl:Properties>
-              <dxl:Cost StartupCost="0" TotalCost="6.187500" Rows="1.000000" Width="4"/>
+              <dxl:Cost StartupCost="0" TotalCost="6.187500" Rows="1.200000" Width="4"/>
             </dxl:Properties>
             <dxl:ProjList>
               <dxl:ProjElem ColId="1" Alias="field_1">
