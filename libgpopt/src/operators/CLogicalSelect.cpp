@@ -34,13 +34,19 @@ using namespace gpopt;
 //
 //---------------------------------------------------------------------------
 CLogicalSelect::CLogicalSelect(CMemoryPool *mp)
-	: CLogicalUnary(mp), m_ptabdesc(NULL)
+	: CLogicalUnary(mp), m_ptabdesc(NULL), m_derive_pred_stats(true)
 {
 	m_phmPexprPartPred = GPOS_NEW(mp) ExprPredToExprPredPartMap(mp);
 }
 
 CLogicalSelect::CLogicalSelect(CMemoryPool *mp, CTableDescriptor *ptabdesc)
-	: CLogicalUnary(mp), m_ptabdesc(ptabdesc)
+	: CLogicalUnary(mp), m_ptabdesc(ptabdesc), m_derive_pred_stats(true)
+{
+	m_phmPexprPartPred = GPOS_NEW(mp) ExprPredToExprPredPartMap(mp);
+}
+
+CLogicalSelect::CLogicalSelect(CMemoryPool *mp, CTableDescriptor *ptabdesc, BOOL derive_pred_stats)
+	: CLogicalUnary(mp), m_ptabdesc(ptabdesc), m_derive_pred_stats(derive_pred_stats)
 {
 	m_phmPexprPartPred = GPOS_NEW(mp) ExprPredToExprPredPartMap(mp);
 }
@@ -150,7 +156,7 @@ CLogicalSelect::PstatsDerive(CMemoryPool *mp, CExpressionHandle &exprhdl,
 	GPOS_ASSERT(Esp(exprhdl) > EspNone);
 	IStatistics *child_stats = exprhdl.Pstats(0);
 
-	if (exprhdl.DeriveHasSubquery(1))
+	if (exprhdl.DeriveHasSubquery(1) || !this->m_derive_pred_stats)
 	{
 		// in case of subquery in select predicate, we return child stats
 		child_stats->AddRef();

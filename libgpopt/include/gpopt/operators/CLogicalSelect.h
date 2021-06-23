@@ -42,12 +42,18 @@ private:
 	// table descriptor
 	CTableDescriptor *m_ptabdesc;
 
+	// derive predicates stats
+	BOOL m_derive_pred_stats;
+
 public:
 	// ctor
 	explicit CLogicalSelect(CMemoryPool *mp);
 
 	// ctor
 	CLogicalSelect(CMemoryPool *mp, CTableDescriptor *ptabdesc);
+
+	// ctor
+	CLogicalSelect(CMemoryPool *mp, CTableDescriptor *ptabdesc, BOOL derive_pred_stats);
 
 	// dtor
 	virtual ~CLogicalSelect();

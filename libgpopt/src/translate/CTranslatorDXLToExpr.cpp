@@ -1125,11 +1125,12 @@ CTranslatorDXLToExpr::PexprLogicalSelect(const CDXLNode *dxlnode)
 	// translate the child dxl node
 	CDXLNode *child_dxlnode = (*dxlnode)[1];
 	CExpression *pexprChild = PexprLogical(child_dxlnode);
+	BOOL derive_pred_stats = (pexprChild->Pop()->Eopid() != COperator::EopLogicalCTEConsumer);
 
 	// translate scalar condition
 	CDXLNode *pdxlnCond = (*dxlnode)[0];
 	CExpression *pexprCond = PexprScalar(pdxlnCond);
-	CLogicalSelect *plgselect = GPOS_NEW(m_mp) CLogicalSelect(m_mp);
+	CLogicalSelect *plgselect = GPOS_NEW(m_mp) CLogicalSelect(m_mp, NULL, derive_pred_stats);
 	CExpression *pexprSelect =
 		GPOS_NEW(m_mp) CExpression(m_mp, plgselect, pexprChild, pexprCond);
 

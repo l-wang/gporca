@@ -2031,8 +2031,15 @@ CUtils::PexprLogicalSelect(CMemoryPool *mp, CExpression *pexpr,
 		GPOS_ASSERT_IMP(pexpr->Pop()->Eopid() != CLogical::EopLogicalSelect,
 						NULL != ptabdesc);
 	}
+
+	BOOL derive_pred_stats = true;
+	if (pexpr->Pop()->Eopid() == COperator::EopLogicalCTEConsumer)
+	{
+		derive_pred_stats = false;
+	}
+
 	return GPOS_NEW(mp) CExpression(
-		mp, GPOS_NEW(mp) CLogicalSelect(mp, ptabdesc), pexpr, pexprPredicate);
+		mp, GPOS_NEW(mp) CLogicalSelect(mp, ptabdesc, derive_pred_stats), pexpr, pexprPredicate);
 }
 
 // if predicate is True return logical expression, otherwise return a new select node
