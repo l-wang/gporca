@@ -132,6 +132,9 @@ private:
 		// is this CTE used
 		BOOL m_fUsed;
 
+		// colref set extracted from the pushed down predicates
+		CColRefSet *m_addedColrefSet;
+
 	public:
 		// ctors
 		CCTEInfoEntry(CMemoryPool *mp, CExpression *pexprCTEProducer);
@@ -170,6 +173,13 @@ private:
 
 		// return position of given consumer column in consumer output
 		ULONG UlConsumerColPos(CColRef *colref);
+
+		void SetAddedColrefSet(CColRefSet *colrefSet);
+		CColRefSet *
+		AddedColrefSet() const
+		{
+			return m_addedColrefSet;
+		}
 
 	};	//class CCTEInfoEntry
 
@@ -293,6 +303,9 @@ public:
 	UlongToColRefMap *PhmulcrConsumerToProducer(CMemoryPool *mp, ULONG ulCTEId,
 												CColRefSet *pcrs,
 												CColRefArray *pdrgpcrProducer);
+
+	// record colref set extracted from the pushed down predicates
+	void SetAddedColrefSet(ULONG ulCTEId, CColRefSet *colrefSet);
 
 };	// CCTEInfo
 }  // namespace gpopt

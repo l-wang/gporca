@@ -726,5 +726,39 @@ CCTEInfo::PhmulcrConsumerToProducer(
 	return colref_mapping;
 }
 
+//---------------------------------------------------------------------------
+//	@function:
+//		CCTEInfo::SetAddedColrefSet
+//
+//	@doc:
+//		Add colref set extracted from the pushed down predicates to the given producer
+//
+//---------------------------------------------------------------------------
+void
+CCTEInfo::SetAddedColrefSet(ULONG ulCTEId, CColRefSet *colrefSet)
+{
+	GPOS_ASSERT(NULL != colrefSet);
+
+	CCTEInfoEntry *pcteinfoentry = m_phmulcteinfoentry->Find(&ulCTEId);
+	GPOS_ASSERT(NULL != pcteinfoentry);
+
+	pcteinfoentry->SetAddedColrefSet(colrefSet);
+}
+
+//---------------------------------------------------------------------------
+//	@function:
+//		CCTEInfo::CCTEInfoEntry::SetAddedColrefSet
+//
+//	@doc:
+//		Record colref set extracted from the pushed down predicates
+//
+//---------------------------------------------------------------------------
+void
+CCTEInfo::CCTEInfoEntry::SetAddedColrefSet(CColRefSet *colrefSet)
+{
+	GPOS_ASSERT(NULL != colrefSet);
+	m_addedColrefSet = colrefSet;
+}
+
 
 // EOF

@@ -155,8 +155,9 @@ CLogicalSelect::PstatsDerive(CMemoryPool *mp, CExpressionHandle &exprhdl,
 {
 	GPOS_ASSERT(Esp(exprhdl) > EspNone);
 	IStatistics *child_stats = exprhdl.Pstats(0);
+	BOOL derive_pred_stats = this->m_derive_pred_stats;
 
-	if (exprhdl.DeriveHasSubquery(1) || !this->m_derive_pred_stats)
+	if (exprhdl.DeriveHasSubquery(1) && (derive_pred_stats || !derive_pred_stats))
 	{
 		// in case of subquery in select predicate, we return child stats
 		child_stats->AddRef();

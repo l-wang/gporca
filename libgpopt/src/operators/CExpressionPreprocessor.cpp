@@ -2001,6 +2001,9 @@ CExpressionPreprocessor::AddPredsToCTEProducers(CMemoryPool *mp,
 			CExpression *pexprNewProducer =
 				GPOS_NEW(mp) CExpression(mp, pop, pexprSelect);
 
+			CColRefSet *colrefs = CUtils::PcrsExtractColumns(mp, pdrgpexpr);
+			GPOS_ASSERT(colrefs != NULL);
+
 			pcteinfo->ReplaceCTEProducer(pexprNewProducer);
 			pexprNewProducer->Release();
 		}
