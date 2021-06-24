@@ -207,6 +207,9 @@ enum EOptTraceFlag
 	// Consider non-equality predicates in Dynamic partition selection
 	EopttraceAllowGeneralPredicatesforDPE = 103037,
 
+	// Enable predicate push down to CTE producer.
+	EopttraceEnableCTEPredicatePushdown = 103038,
+
 	///////////////////////////////////////////////////////
 	///////////////////// statistics flags ////////////////
 	//////////////////////////////////////////////////////
